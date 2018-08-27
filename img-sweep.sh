@@ -1,6 +1,6 @@
+#!/usr/bin/env bash
 # Script for batch organizing photos
 
-#!/usr/bin/env bash
 set -euo pipefail
 
 cd ~/Downloads
