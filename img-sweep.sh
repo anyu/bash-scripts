@@ -15,7 +15,7 @@ for file in *; do
 
     if [[ ! -e ~/Downloads/renamed/$new_name ]]; then
       echo "Renaming $file to $new_name..."
-      mv -i "$file" renamed/$new_name  # -i prompt as a redundant safety check
+      mv -i "$file" renamed/"$new_name"  # -i prompt as a redundant safety check
     else
       echo "$new_name already exists. Skipping rename."
     fi
