@@ -3,7 +3,7 @@
 set -euo pipefail
 
 cd "$HOME"/Downloads
-initial_item_count=$(ls | wc -l)
+initial_item_count=$(find . -maxdepth 1 -mindepth 1 -not -path '*/\.*' | wc -l)
 num_modified=0
 
 echo "Number of items in Downloads: $initial_item_count"
@@ -28,7 +28,7 @@ for file in *; do
   fi
 done
 
-echo -e "\nModified $num_modified files\n"
+echo -e "\\nModified $num_modified files\\n"
 
 
 # Considered commands:
