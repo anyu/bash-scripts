@@ -2,6 +2,8 @@
 # Script for batch organizing photos
 set -euo pipefail
 
+NAME=${1:-img}
+
 cd "$HOME"/Downloads
 initial_item_count=$(find . -maxdepth 1 -mindepth 1 -not -path '*/\.*' | wc -l)
 num_modified=0
@@ -14,7 +16,7 @@ for file in *; do
 
   if [[ $file_type == 'JPEG '* ]]; then
     date_modified=$(date -r "$file" +%Y%m%d)
-    new_name=${date_modified}_img-$RANDOM.jpg
+    new_name=${date_modified}_${NAME}-$RANDOM.jpg
 
     if [[ ! -e ~/Downloads/_renamed/$new_name ]]; then
       ((num_modified++))
