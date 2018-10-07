@@ -7,9 +7,10 @@ NAME=${1:-img}
 cd "$HOME"/Downloads
 initial_item_count=$(find . -maxdepth 1 -mindepth 1 -not -path '*/\.*' | wc -l)
 num_modified=0
+new_dir=$(date +"%Y%m%d")
+mkdir $new_dir
 
 echo "Number of items in Downloads: $initial_item_count"
-mkdir "_renamed"
 
 for file in *; do
   file_type=$(file -b "$file")
@@ -18,10 +19,10 @@ for file in *; do
     date_modified=$(date -r "$file" +%Y%m%d)
     new_name=${date_modified}_${NAME}-$RANDOM.jpg
 
-    if [[ ! -e ~/Downloads/_renamed/$new_name ]]; then
+    if [[ ! -e ~/Downloads/$new_dir/$new_name ]]; then
       ((num_modified++))
       echo "Renaming $file to $new_name..."
-      mv -i "$file" _renamed/"$new_name"  # -i prompt as a redundant safety check
+      mv -i "$file" "$new_dir"/"$new_name"  # -i prompt as a redundant safety check
     else
       echo "$new_name already exists. Skipping rename."
     fi
