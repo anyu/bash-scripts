@@ -13,11 +13,12 @@ mkdir $new_dir
 echo "Number of items in Downloads: $initial_item_count"
 
 for file in *; do
-  file_type=$(file -b "$file")
+  file_type=${file##*.}
 
-  if [[ $file_type == 'JPEG '* ]]; then
+  shopt -s nocasematch
+  if [[ $file_type == 'JPEG'* ]] || [[ $file_type == 'JPG'* ]] || [[ $file_type == 'HEIC'* ]] || [[ $file_type == 'MOV'* ]]; then
     date_modified=$(date -r "$file" +%Y%m%d)
-    new_name=${date_modified}_${NAME}-$RANDOM.jpg
+    new_name=${date_modified}_${NAME}-$RANDOM.${file_type}
 
     if [[ ! -e ~/Downloads/$new_dir/$new_name ]]; then
       ((num_modified++))
@@ -26,8 +27,9 @@ for file in *; do
     else
       echo "$new_name already exists. Skipping rename."
     fi
+  shopt -u nocasematch
   else
-    echo "$file is not a JPEG. Skipping rename."
+    echo "$file is not a JPEG, HEIC, or MOV. Skipping rename."
   fi
 done
 
